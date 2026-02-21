@@ -297,7 +297,11 @@ namespace VaultSharp.V1.SystemBackend
                 }
 
                 // for head calls, the response is empty. So return a null object, to avoid misleading callers.
+#if NET8_0_OR_GREATER
+                var healthStatus = (HealthStatus)JsonSerializer.Deserialize(vaultApiException.Message, _polymath.JsonSerializerOptions.GetTypeInfo(typeof(HealthStatus)));
+#else
                 var healthStatus = JsonSerializer.Deserialize<HealthStatus>(vaultApiException.Message, _polymath.JsonSerializerOptions);
+#endif
                 healthStatus.HttpStatusCode = vaultApiException.StatusCode;
 
                 return healthStatus;
@@ -509,14 +513,22 @@ namespace VaultSharp.V1.SystemBackend
             var response = await _polymath.MakeVaultApiRequest<Secret<JsonObject>>("v1/sys/raw/" + storagePath.Trim('/'), HttpMethod.Get).ConfigureAwait(_polymath.VaultClientSettings.ContinueAsyncTasksOnCapturedContext);
 
             string value = response.Data["value"].ToString();
+#if NET8_0_OR_GREATER
+            var data = (Dictionary<string, object>)JsonSerializer.Deserialize(value, _polymath.JsonSerializerOptions.GetTypeInfo(typeof(Dictionary<string, object>)));
+#else
             var data = JsonSerializer.Deserialize<Dictionary<string, object>>(value, _polymath.JsonSerializerOptions);
+#endif
 
             return _polymath.GetMappedSecret(response, data);
         }
 
         public async Task WriteRawSecretAsync(string storagePath, Dictionary<string, object> values)
         {
+#if NET8_0_OR_GREATER
+            var requestData = new ValueRequest { Value = JsonSerializer.Serialize(values, _polymath.JsonSerializerOptions.GetTypeInfo(typeof(Dictionary<string, object>))) };
+#else
             var requestData = new ValueRequest { Value = JsonSerializer.Serialize(values, _polymath.JsonSerializerOptions) };
+#endif
 
             await _polymath.MakeVaultApiRequest("v1/sys/raw/" + storagePath.Trim('/'), HttpMethod.Put, requestData).ConfigureAwait(_polymath.VaultClientSettings.ContinueAsyncTasksOnCapturedContext);
         }
