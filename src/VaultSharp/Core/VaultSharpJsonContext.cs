@@ -8,12 +8,9 @@ using System.Text.Json.Serialization.Metadata;
 namespace VaultSharp.Core
 {
 #if NET8_0_OR_GREATER
-
     [JsonSourceGenerationOptions(
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
         PropertyNamingPolicy = JsonKnownNamingPolicy.Unspecified)]
-
-    // === Response types (Secret<T> wrappers) ===
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SystemBackend.ACLPolicy>))]
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SecretsEngines.ActiveDirectory.ActiveDirectoryCredentials>))]
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SecretsEngines.ActiveDirectory.Models.ActiveDirectoryRoleModel>))]
@@ -131,8 +128,6 @@ namespace VaultSharp.Core
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SecretsEngines.UsernamePasswordCredentials>))]
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SecretsEngines.GoogleCloudKMS.VerificationResponse>))]
     [JsonSerializable(typeof(VaultSharp.V1.Commons.Secret<VaultSharp.V1.SecretsEngines.Transit.VerifyResponse>))]
-
-    // === Standalone response types ===
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.HealthStatus))]
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.Leader))]
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.MasterCredentials))]
@@ -143,21 +138,13 @@ namespace VaultSharp.Core
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.RootTokenGenerationStatus))]
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.SealStatus))]
     [JsonSerializable(typeof(JsonObject))]
-
-    // === Audit backend concrete types (for AuditBackendJsonConverter) ===
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.FileAuditBackend))]
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.SyslogAuditBackend))]
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.CustomAuditBackend))]
-
-    // === Dictionary types ===
     [JsonSerializable(typeof(Dictionary<string, object>))]
     [JsonSerializable(typeof(Dictionary<string, string>))]
-
-    // === AliCloud policy list types (serialized inline as JSON strings) ===
     [JsonSerializable(typeof(List<VaultSharp.V1.SecretsEngines.AliCloud.Models.AliCloudRemotePolicyModel>))]
     [JsonSerializable(typeof(List<VaultSharp.V1.SecretsEngines.AliCloud.Models.AliCloudInlinePolicyModel>))]
-
-    // === Request model types (from AotRequestModels.cs) ===
     [JsonSerializable(typeof(TokenRequest))]
     [JsonSerializable(typeof(TokenClientIdRequest))]
     [JsonSerializable(typeof(InputRequest))]
@@ -200,8 +187,6 @@ namespace VaultSharp.Core
     [JsonSerializable(typeof(RulesRequest))]
     [JsonSerializable(typeof(PolicyTextRequest))]
     [JsonSerializable(typeof(CloudFoundryLoginRequest))]
-
-    // === Named request/model types used as requestData ===
     [JsonSerializable(typeof(VaultSharp.V1.SystemBackend.AbstractAuditBackend))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.AuthMethod))]
     [JsonSerializable(typeof(VaultSharp.Core.BackendConfig))]
@@ -236,27 +221,15 @@ namespace VaultSharp.Core
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Transit.CacheConfigRequestOptions))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.PKI.CertificateCredentialsRequestOptions))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.PKI.SignCertificatesRequestOptions))]
-    // TODO: PKITidyRequest does not exist; the actual class is CertificateTidyRequest in VaultSharp.V1.SecretsEngines.PKI
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.PKI.PKITidyRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.PKI.CertificateAutoTidyRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.SSH.SignKeyRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.TOTP.TOTPCreateKeyRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.RabbitMQ.RabbitMQRole))]
-    // TODO: ConsulAccessConfigModel does not exist; the actual class is AccessConfigModel in VaultSharp.V1.SecretsEngines.Consul.Models
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Consul.Models.ConsulAccessConfigModel))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Consul.Models.CreateConsulRoleModel))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.AWS.CreateAWSRoleModel))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.AliCloud.Models.CreateAliCloudRoleModel))]
-    // TODO: CreateAliCloudRootCredentialsConfigModel does not exist; the actual class is CreateRootCredentialsConfigModel in VaultSharp.V1.SecretsEngines.AliCloud.Models
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.AliCloud.CreateAliCloudRootCredentialsConfigModel))]
-    // TODO: CreateADConnectionConfigModel does not exist; the actual class is CreateConnectionConfigModel in VaultSharp.V1.SecretsEngines.ActiveDirectory.Models
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.ActiveDirectory.CreateADConnectionConfigModel))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.ActiveDirectory.Models.CreateActiveDirectoryRoleModel))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.ActiveDirectory.Models.CreateServiceAccountSetModel))]
-    // TODO: CreateOpenLDAPDynamicRole does not exist in the codebase
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.OpenLDAP.CreateOpenLDAPDynamicRole))]
-    // TODO: CreateOpenLDAPStaticRole does not exist in the codebase
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.OpenLDAP.CreateOpenLDAPStaticRole))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.Token.CreateTokenRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.Token.CreateTokenRoleRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Identity.CreateEntityRequest))]
@@ -267,19 +240,14 @@ namespace VaultSharp.Core
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Identity.BatchDeleteEntitiesRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Identity.CreateNamedKeyRequest))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Identity.CreateRoleRequest))]
-    // TODO: CreateKubernetesCredentialRequestOptions does not exist in the codebase
-    // [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Kubernetes.CreateKubernetesCredentialRequestOptions))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Enterprise.Transform.EncodeRequestOptions))]
     [JsonSerializable(typeof(VaultSharp.V1.SecretsEngines.Enterprise.Transform.DecodeRequestOptions))]
-
-    // === Auth method login types ===
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.AWS.AbstractAWSAuthMethodInfo))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.AliCloud.AliCloudAuthMethodInfo))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.Azure.AzureAuthMethodInfo))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.GoogleCloud.GoogleCloudAuthMethodInfo))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.JWT.JWTAuthMethodInfo))]
     [JsonSerializable(typeof(VaultSharp.V1.AuthMethods.Kubernetes.KubernetesAuthMethodInfo))]
-
     internal partial class VaultSharpJsonContext : JsonSerializerContext
     {
     }
