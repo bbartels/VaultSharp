@@ -39,7 +39,7 @@ namespace VaultSharp.Core
     internal sealed class OtpPgpKeyRequest
     {
         [JsonPropertyName("otp")] public string Otp { get; set; }
-        [JsonPropertyName("pgpKey")]public string PgpKey { get; set; }
+        [JsonPropertyName("pgpKey")] public string PgpKey { get; set; }
     }
 
     internal sealed class KeyNonceRequest
